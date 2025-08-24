@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate Icons</title>
+</head>
+<body>
+  <canvas id="canvas192" width="192" height="192"></canvas>
+  <canvas id="canvas512" width="512" height="512"></canvas>
+  
+  <script>
+    function createIcon(canvasId, size) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext('2d');
+      
+      // Background gradient
+      const gradient = ctx.createLinearGradient(0, 0, size, size);
+      gradient.addColorStop(0, '#667eea');
+      gradient.addColorStop(1, '#764ba2');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, size, size);
+      
+      // Draw sudoku grid
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = size / 50;
+      
+      const gridSize = size * 0.6;
+      const startX = (size - gridSize) / 2;
+      const startY = (size - gridSize) / 2;
+      const cellSize = gridSize / 9;
+      
+      // Draw grid
+      for (let i = 0; i <= 9; i++) {
+        ctx.beginPath();
+        ctx.moveTo(startX + i * cellSize, startY);
+        ctx.lineTo(startX + i * cellSize, startY + gridSize);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(startX, startY + i * cellSize);
+        ctx.lineTo(startX + gridSize, startY + i * cellSize);
+        ctx.stroke();
+      }
+      
+      // Thicker lines for 3x3 boxes
+      ctx.lineWidth = size / 25;
+      for (let i = 0; i <= 3; i++) {
+        ctx.beginPath();
+        ctx.moveTo(startX + i * cellSize * 3, startY);
+        ctx.lineTo(startX + i * cellSize * 3, startY + gridSize);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(startX, startY + i * cellSize * 3);
+        ctx.lineTo(startX + gridSize, startY + i * cellSize * 3);
+        ctx.stroke();
+      }
+      
+      // Add some sample numbers
+      ctx.fillStyle = 'white';
+      ctx.font = `bold ${size / 15}px Arial`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      
+      const numbers = [
+        [0, 0, '5'], [2, 1, '3'], [4, 0, '7'],
+        [1, 3, '6'], [3, 4, '1'], [5, 3, '9'],
+        [6, 6, '2'], [7, 8, '8'], [8, 7, '4']
+      ];
+      
+      numbers.forEach(([row, col, num]) => {
+        const x = startX + col * cellSize + cellSize / 2;
+        const y = startY + row * cellSize + cellSize / 2;
+        ctx.fillText(num, x, y);
+      });
+      
+      // Download the icon
+      canvas.toBlob(blob => {
+        const link = document.createElement('a');
+        link.download = `icon-${size}.png`;
+        link.href = URL.createObjectURL(blob);
+        link.click();
+      });
+    }
+    
+    // Generate icons
+    createIcon('canvas192', 192);
+    createIcon('canvas512', 512);
+    
+    console.log('Icons generated! Check your downloads folder.');
+  </script>
+</body>
+</html>

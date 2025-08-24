@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#4a5568">
+  <title>Sudoku Master</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Sudoku Master</h1>
+      <div class="header-info">
+        <div class="timer">
+          <span class="timer-label">Time:</span>
+          <span id="timer">00:00</span>
+        </div>
+        <div class="score">
+          <span class="score-label">Score:</span>
+          <span id="score">0</span>
+        </div>
+      </div>
+    </header>
+
+    <div id="encouragement" class="encouragement"></div>
+
+    <main>
+      <div id="game-board" class="game-board"></div>
+      
+      <div class="number-pad">
+        <button class="number-btn" data-number="1">1</button>
+        <button class="number-btn" data-number="2">2</button>
+        <button class="number-btn" data-number="3">3</button>
+        <button class="number-btn" data-number="4">4</button>
+        <button class="number-btn" data-number="5">5</button>
+        <button class="number-btn" data-number="6">6</button>
+        <button class="number-btn" data-number="7">7</button>
+        <button class="number-btn" data-number="8">8</button>
+        <button class="number-btn" data-number="9">9</button>
+        <button class="number-btn erase-btn" data-number="0">⌫</button>
+      </div>
+    </main>
+
+    <div class="controls">
+      <button id="new-game" class="btn btn-primary">New Game</button>
+      <button id="reset-game" class="btn btn-secondary">Reset Board</button>
+      <button id="high-scores" class="btn btn-secondary">High Scores</button>
+      <button id="settings" class="btn btn-secondary">Settings</button>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+      <div class="modal-content">
+        <h2>Settings</h2>
+        <div class="difficulty-selection">
+          <h3>Difficulty Level</h3>
+          <label class="difficulty-option">
+            <input type="radio" name="difficulty" value="easy" checked>
+            <span>Easy</span>
+          </label>
+          <label class="difficulty-option">
+            <input type="radio" name="difficulty" value="medium">
+            <span>Medium</span>
+          </label>
+          <label class="difficulty-option">
+            <input type="radio" name="difficulty" value="hard">
+            <span>Hard</span>
+          </label>
+          <label class="difficulty-option">
+            <input type="radio" name="difficulty" value="expert">
+            <span>Expert</span>
+          </label>
+        </div>
+        <div class="modal-buttons">
+          <button id="clear-data" class="btn btn-danger">Clear All Data</button>
+          <button id="close-settings" class="btn btn-primary">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- High Scores Modal -->
+    <div id="scores-modal" class="modal">
+      <div class="modal-content">
+        <h2>High Scores</h2>
+        <div id="scores-list" class="scores-list"></div>
+        <button id="close-scores" class="btn btn-primary">Close</button>
+      </div>
+    </div>
+
+    <!-- Victory Modal -->
+    <div id="victory-modal" class="modal">
+      <div class="modal-content">
+        <h2>🎉 Congratulations! 🎉</h2>
+        <p>You solved the puzzle!</p>
+        <div class="victory-stats">
+          <p>Time: <span id="victory-time"></span></p>
+          <p>Score: <span id="victory-score"></span></p>
+          <p>Difficulty: <span id="victory-difficulty"></span></p>
+        </div>
+        <button id="play-again" class="btn btn-primary">Play Again</button>
+      </div>
+    </div>
+
+    <!-- Install Prompt -->
+    <div id="install-prompt" class="install-prompt">
+      <p>Install Sudoku Master for offline play!</p>
+      <button id="install-btn" class="btn btn-primary">Install</button>
+      <button id="dismiss-install" class="btn btn-secondary">Later</button>
+    </div>
+  </div>
+
+  <script src="sudoku.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // Register service worker for offline functionality
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => console.log('ServiceWorker registered'))
+          .catch(err => console.log('ServiceWorker registration failed'));
+      });
+    }
+  </script>
+</body>
+</html>
