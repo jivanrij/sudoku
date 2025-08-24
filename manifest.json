@@ -1,6 +1,6 @@
 {
-  "name": "Sudoku Master",
-  "short_name": "Sudoku",
+  "name": "Annejoku",
+  "short_name": "Annejoku",
   "description": "A challenging and fun Sudoku puzzle game with multiple difficulty levels",
   "start_url": "/",
   "display": "standalone",

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sudoku-v1';
+const CACHE_NAME = 'annejoku-v1';
 const urlsToCache = [
   '/',
   '/index.html',

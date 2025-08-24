@@ -1,4 +1,4 @@
-# Sudoku Master
+# Annejoku
 
 A mobile-friendly Sudoku puzzle game built with vanilla JavaScript, featuring multiple difficulty levels, score tracking, and installable as a web app.
 
